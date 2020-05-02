@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 클래스에 별명 설정 -->
+	<typeAliases>
+		<typeAlias type="Model.MemberDTO" alias="memberdto"/>
+		<typeAlias type="Model.BoardDTO" alias="boarddto"/>
+		<typeAlias type="Model.OccasionCashDTO" alias="occasionCashdto"/>
+		<typeAlias type="Model.OccasionCashGroupDTO" alias="occasionCashGroupdto"/>
+		<typeAlias type="Model.EventDTO" alias="eventdto"/>
+		<typeAlias type="Model.QuestionDTO" alias="questiondto"/>
+		<typeAlias type="Model.ReplyDTO" alias="replydto"/>
+		<typeAlias type="Model.AlimiDTO" alias="alimidto"/>
+		<typeAlias type="Model.AlimiTagDTO" alias="alimitagdto"/>
+		<typeAlias type="Model.ShopDTO" alias="shopdto"/>
+		<typeAlias type="Model.ShopevDTO" alias="shopevdto"/>
+	</typeAliases>
+	<!-- SQL Mapper 설정 -->
+	<mappers>
+		<mapper resource="mybatis/member-mapping.xml" />
+		<mapper resource="mybatis/board-mapping.xml" />
+		<mapper resource="mybatis/occasionCash-mapping.xml" />
+		<mapper resource="mybatis/event-mapping.xml" />
+		<mapper resource="mybatis/question-mapping.xml" />
+		<mapper resource="mybatis/alimi-mapping.xml" />
+		<mapper resource="mybatis/shop-mapping.xml" />
+	</mappers>
+</configuration>

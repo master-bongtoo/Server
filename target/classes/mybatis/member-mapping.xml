@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.member">
+	<select id="memberIDCheck" parameterType="String" resultType="int">
+		select count(*) as cnt from member where member_id=#{member_id}
+	</select>
+	<insert id="memberWriteJson" parameterType="memberdto">
+		insert into member values (seq_member.nextval, #{member_id}, #{member_phone}, #{member_origin_img},
+		#{member_uuid_img}, #{member_pw}, #{name}, #{nickname}, #{email}, 0, 0, sysdate, sysdate, 1)
+	</insert>
+	<select id="memberLoginJson" parameterType="memberdto" resultType="memberdto">
+		select * from member where member_id=#{member_id} and member_pw=#{member_pw}
+	</select>
+	<select id="memberViewJson" parameterType="int" resultType="memberdto">
+		select * from member where member_num=#{member_num}
+	</select>
+	<update id="memberUpdateJson" parameterType="memberdto">
+		UPDATE member set member_origin_img=#{member_origin_img}, member_uuid_img=#{member_uuid_img},
+		nickname=#{nickname}, email=#{email}, edit_logtime=sysdate where member_num=#{member_num}
+	</update>
+	<update id="memberUpdatePWJson" parameterType="memberdto">
+		UPDATE member set member_origin_img=#{member_origin_img}, member_uuid_img=#{member_uuid_img},
+		member_pw=#{member_pw}, nickname=#{nickname}, email=#{email}, edit_logtime=sysdate where member_num=#{member_num}
+	</update>
+	<update id="memberCreditJson" parameterType="memberdto">
+		UPDATE member set money_give=money_give+#{money_give}, money_take=money_take+#{money_take} where member_num=#{member_num}
+	</update>
+	<delete id="memberDeleteJson" parameterType="int">
+		DELETE member where member_num=#{member_num}
+	</delete>
+</mapper>

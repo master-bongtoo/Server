@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.question">
+	<insert id="questionWriteJson" parameterType="questiondto">
+		insert into question values (#{member_num}, question_seq.nextval, #{question_type}, #{question_subject},
+		#{question_content}, #{question_origin_img}, #{question_uuid_img}, #{question_phone}, #{question_email}, #{question_check})
+	</insert>
+	<select id="questionViewJson" parameterType="int" resultType="questiondto">
+		select * from question where question_index=#{question_index}
+	</select>
+	<select id="questionListJson" parameterType="java.util.Map" resultType="questiondto">
+	<![CDATA[select * from(select rownum rn, tt. * from(select * from question where question_type=#{question_type} order by question_index asc) tt)
+		where rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<update id="questionUpdateJson" parameterType="questiondto">
+		UPDATE question set question_type=#{question_type}, question_subject=#{question_subject},
+		question_content=#{question_content}, question_origin_img=#{question_origin_img},
+		question_uuid_img=#{question_uuid_img}, question_phone=#{question_phone}, question_email=#{question_email}
+		where question_index=#{question_index} and member_num=#{member_num}
+	</update>
+	<delete id="questionDeleteJson" parameterType="int">
+		DELETE question where question_index=#{question_index}
+	</delete>
+		<select id="questionListTotalJson" parameterType="int" resultType="int">
+		SELECT count(*) as cnt from question where question_type=#{question_type}
+	</select>
+</mapper>
