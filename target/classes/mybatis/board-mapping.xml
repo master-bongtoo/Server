@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.board">
+	<insert id="boardWriteJson" parameterType="boarddto">
+		insert into board values (#{member_num}, seq_board.nextval, #{board_title}, #{board_description},
+		sysdate, sysdate, #{board_origin_img}, #{board_uuid_img}, #{board_origin_video}, #{board_uuid_video}, #{board_category}, 0, 0)
+	</insert>
+	<select id="boardViewJson" parameterType="java.util.Map" resultType="boarddto">
+		select b.*, m.nickname, m.grade from board b, member m where
+		b.board_num=#{board_num} and m.member_num=#{member_num}
+	</select>
+	<select id="boardListTotalJson" resultType="int">
+		SELECT count(*) as cnt from board
+	</select>
+	<select id="boardListCategoryTotalJson" parameterType="String" resultType="int">
+		SELECT count(*) as cnt from board where board_category=#{board_category}
+	</select>
+	<select id="boardListdescJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade 
+		from(select rownum rn, tt. * from(select * from board order by board_num desc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="boardListascJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade 
+		from(select rownum rn, tt. * from(select * from board order by board_num asc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="boardListCategorydescJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade from(select rownum rn, tt. * from
+		(select * from board where board_category=#{board_category} order by board_num desc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum} order by board_num desc]]>
+	</select>
+	<select id="boardListCategoryascJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade from(select rownum rn, tt. * from
+		(select * from board where board_category=#{board_category} order by board_num asc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum} order by board_num asc]]>
+	</select>
+	<select id="boardSearchListTotalJson" parameterType="String" resultType="int">
+		select count(*) as cnt from board where board_title like #{search_word} or board_description like #{search_word}
+	</select>
+	<select id="boardSearchListdescJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select m.nickname, m.grade, b.* from(select rownum rn, tt. * from
+		(select * from board where board_title like #{search_word} or board_description like #{search_word} order by board_num desc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum} order by b.board_num desc]]>
+	</select>
+	<select id="boardSearchListascJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select m.nickname, m.grade, b.* from(select rownum rn, tt. * from
+		(select * from board where board_title like #{search_word} or board_description like #{search_word} order by board_num asc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum} order by b.board_num asc]]>
+	</select>
+	<update id="boardUpdateJson" parameterType="boarddto">
+		UPDATE board set board_title=#{board_title}, board_description=#{board_description}, board_edit_date=sysdate,
+		board_origin_img=#{board_origin_img, jdbcType=VARCHAR}, board_uuid_img=#{board_uuid_img, jdbcType=VARCHAR}, board_origin_video=#{board_origin_video, jdbcType=VARCHAR},
+		board_uuid_video=#{board_uuid_video, jdbcType=VARCHAR}, board_category=#{board_category} where board_num=#{board_num} and member_num=#{member_num}
+	</update>
+	<update id="boardUpdateHitJson" parameterType="int">
+		UPDATE board set board_hit=board_hit+1 where board_num=#{board_num}
+	</update>
+	<delete id="boardDeleteJson" parameterType="int">
+		DELETE board where board_num=#{board_num} and member_num=#{member_num}
+	</delete>
+	
+	
+	<insert id="boardReplyWriteJson" parameterType="replydto">
+		insert into reply values (#{member_num}, #{board_num}, reply_seq.nextval, #{reply_description}, 0, sysdate, sysdate)
+	</insert>
+	<update id="boardReplyUpdateJson" parameterType="replydto">
+		UPDATE reply set reply_description=#{reply_description}, reply_edit_date=sysdate where board_num=#{board_num}
+		and member_num=#{member_num} and reply_num=#{reply_num}
+	</update>
+	<select id="boardReplyListTotalJson" parameterType="int" resultType="int">
+		SELECT count(*) as cnt from reply where board_num=#{board_num}
+	</select>
+	<select id="boardReplyListJson" parameterType="java.util.Map" resultType="replydto">
+		<![CDATA[select r.*, m.nickname, m.grade from(select rownum rn, tt. * from
+		(select * from reply where board_num=#{board_num} order by reply_num asc) tt) r, member m
+		where r.member_num=m.member_num and rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<delete id="boardReplyDeleteJson" parameterType="replydto">
+		DELETE reply where reply_num=#{reply_num} and member_num=#{member_num}
+	</delete>
+	
+	
+	<select id="myboardListdescJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade from(select rownum rn, tt. * from
+		(select * from board where member_num=#{member_num} order by board_num desc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="myboardListascJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade from(select rownum rn, tt. * from
+		(select * from board where member_num=#{member_num} order by board_num asc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="myboardListTotalJson" resultType="int">
+		SELECT count(*) as cnt from board where member_num=#{member_num}
+	</select>
+	
+	
+	<select id="btLikeCheckJson" parameterType="replydto" resultType="int">
+		SELECT count(*) as cnt from bt_like where member_num=#{member_num} and board_num=#{board_num} and reply_num=#{reply_num} and like_check=1
+	</select>
+	<insert id="btLikeWriteJson" parameterType="replydto">
+		insert into bt_like values(#{member_num}, #{board_num}, #{reply_num}, 1)
+	</insert>
+	<delete id="btLikeDeleteJson" parameterType="replydto">
+		DELETE bt_like where member_num=#{member_num} and board_num=#{board_num} and reply_num=#{reply_num} and like_check=1
+	</delete>
+	
+	<update id="boardLikeUpdateJson" parameterType="java.util.Map">
+		update board set board_like=board_like+#{like_num} where board_num=#{board_num}
+	</update>	
+	<update id="boardReplyLikeUpdateJson" parameterType="java.util.Map">
+		update reply set reply_like=reply_like+#{like_num} where reply_num=#{reply_num}
+	</update>
+	<select id="boardLikeViewJson" parameterType="replydto" resultType="int">
+		SELECT board_like from board where board_num=#{board_num}
+	</select>
+	<select id="replyLikeViewJson" parameterType="replydto" resultType="int">
+		SELECT reply_like from reply where member_num=#{member_num} and board_num=#{board_num} and reply_num=#{reply_num}
+	</select>
+	
+	<select id="boardLikeListJson" parameterType="java.util.Map" resultType="boarddto">
+		<![CDATA[select b.*, m.nickname, m.grade 
+		from(select rownum rn, tt. * from(select * from board order by board_like desc) tt) b, member m
+		where b.member_num = m.member_num and rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	
+	
+</mapper>

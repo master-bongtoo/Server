@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.alimi">
+	<insert id="alimiWriteJson" parameterType="alimidto">
+		insert into alimilist values (alimi_seq.nextval, #{alimi_place}, #{alimi_content},
+		#{alimi_date}, #{alimi_tag}, #{member_num}, #{alimi_who}, #{alimi_type})
+	</insert>
+	<select id="alimiViewJson" parameterType="int" resultType="alimidto">
+		select * from alimilist where alimi_index=#{alimi_index}
+	</select>
+<!-- 	<select id="alimiListTotalJson" parameterType="int" resultType="int"> -->
+<!-- 		SELECT count(*) as cnt from alimilist where alimi_tag=(select alimi_tag1 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag2 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag3 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag4 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag5 from memberalimi where member_num=#{member_num}) -->
+<!-- 	</select> -->
+<!-- 	<select id="alimiListJson" parameterType="java.util.Map" resultType="alimidto"> -->
+<!-- 		<![CDATA[select * from(select rownum rn, tt. * from(select * from alimilist order by alimi_index desc) tt) -->
+<!-- 		where alimi_tag=(select alimi_tag1 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag2 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag3 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag4 from memberalimi where member_num=#{member_num}) or -->
+<!-- 		alimi_tag=(select alimi_tag5 from memberalimi where member_num=#{member_num}) and rn >=#{startNum} and rn <=#{endNum}]]> -->
+<!-- 	</select> -->
+	<select id="alimiListTotalJson" parameterType="String" resultType="int">
+		select count(*) as cnt from alimilist where alimi_tag=#{alimi_tag}
+	</select>
+	<select id="alimiListJson" parameterType="java.util.Map" resultType="alimidto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from alimilist order by alimi_index desc) tt)
+		where alimi_tag=#{alimi_tag} and rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<update id="alimiUpdateJson" parameterType="alimidto">
+		update alimilist set alimi_place=#{alimi_place}, alimi_content=#{alimi_content}, alimi_date=#{alimi_date},
+		alimi_tag=#{alimi_tag}, alimi_who=#{alimi_who}, alimi_type=#{alimi_type} where alimi_index=#{alimi_index} and member_num=#{member_num}
+	</update>
+	<delete id="alimiDeleteJson" parameterType="alimidto">
+		delete alimilist where alimi_index=#{alimi_index} and member_num=#{member_num}
+	</delete>
+	
+	
+	<insert id="alimiTagWriteJson" parameterType="alimitagdto">
+		insert into memberalimi values (#{member_num}, #{alimi_tag1}, #{alimi_tag2}, #{alimi_tag3}, #{alimi_tag4}, #{alimi_tag5})
+	</insert>
+	<select id="alimiTagViewJson" parameterType="int" resultType="alimitagdto">
+		select * from memberalimi where member_num=#{member_num}
+	</select>
+	<update id="alimiTagUpdateJson" parameterType="alimitagdto">
+		update memberalimi set alimi_tag1=#{alimi_tag1}, alimi_tag2=#{alimi_tag2}, alimi_tag3=#{alimi_tag3},
+		alimi_tag4=#{alimi_tag4}, alimi_tag5=#{alimi_tag5} where member_num=#{member_num}
+	</update>
+	<delete id="alimiTagDeleteJson" parameterType="int">
+		delete memberalimi where member_num=#{member_num}
+	</delete>
+	
+</mapper>

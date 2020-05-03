@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.occasionCash">
+	<insert id="occasionCashWriteJson" parameterType="occasionCashdto">
+		insert into OccasionCash values (#{member_num}, #{occ_cash_name}, #{occ_cash_group}, #{occ_cash_place},
+		#{occ_cash_money}, #{occ_cash_invite_way}, #{occ_cash_attendance}, #{occ_cash_memo}, #{occ_cash_date},
+		#{occ_cash_origin_img}, #{occ_cash_uuid_img}, seq_occ_cash.nextval, #{occ_cash_group_index})
+	</insert>
+	<update id="occasionCashUpdateJson" parameterType="occasionCashdto">
+		UPDATE OccasionCash set occ_cash_name=#{occ_cash_name}, occ_cash_group=#{occ_cash_group}, occ_cash_place=#{occ_cash_place},
+		occ_cash_money=#{occ_cash_money}, occ_cash_invite_way=#{occ_cash_invite_way}, occ_cash_attendance=#{occ_cash_attendance},
+		occ_cash_memo=#{occ_cash_memo}, occ_cash_date=#{occ_cash_date}, occ_cash_origin_img=#{occ_cash_origin_img},
+		occ_cash_uuid_img=#{occ_cash_uuid_img} where occ_cash_num=#{occ_cash_num}
+	</update>
+	<select id="occasionCashListJson" parameterType="java.util.Map" resultType="occasionCashdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from OccasionCash where member_num=#{member_num}
+		order by occ_cash_date desc) tt) where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="occasionCashMoneyListJson" parameterType="java.util.Map" resultType="occasionCashdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from OccasionCash where member_num=#{member_num}
+		order by occ_cash_money desc) tt) where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="occasionCashListTotalJson" parameterType="int" resultType="int">
+		SELECT count(*) as cnt from OccasionCash where member_num=#{member_num}
+	</select>
+	<select id="occasionCashTotalMoneyJson" parameterType="int" resultType="int">
+		SELECT sum(occ_cash_money) as total_money FROM OccasionCash where member_num=#{member_num}
+	</select>
+	<select id="occasionCashViewJson" parameterType="int" resultType="occasionCashdto">
+		select * from OccasionCash where occ_cash_num=#{occ_cash_num}
+	</select>
+	<delete id="occasionCashDeleteJson" parameterType="int">
+		DELETE OccasionCash where occ_cash_num=#{occ_cash_num}
+	</delete>
+	
+	<insert id="occasionCashGroupWriteJson" parameterType="occasionCashGroupdto">
+		insert into OccasionCashGroup values(#{member_num}, #{occ_cash_group1}, #{occ_cash_group2}, #{occ_cash_group3}, #{occ_cash_group4},
+		#{occ_cash_group5}, #{occ_cash_group6}, #{occ_cash_group7}, #{occ_cash_group8}, #{occ_cash_group9}, #{occ_cash_group10})
+	</insert>
+	<select id="occasionCashGroupViewJson" parameterType="int" resultType="occasionCashGroupdto">
+		select * from OccasionCashGroup where member_num=#{member_num}
+	</select>
+	<update id="occasionCashGroupUpdateJson" parameterType="occasionCashGroupdto">
+		UPDATE OccasionCashGroup set occ_cash_group1=#{occ_cash_group1}, occ_cash_group2=#{occ_cash_group2}, occ_cash_group3=#{occ_cash_group3},
+		occ_cash_group4=#{occ_cash_group4}, occ_cash_group5=#{occ_cash_group5}, occ_cash_group6=#{occ_cash_group6}, occ_cash_group7=#{occ_cash_group7}, 
+		occ_cash_group8=#{occ_cash_group8}, occ_cash_group9=#{occ_cash_group9}, occ_cash_group10=#{occ_cash_group10} where member_num=#{member_num}
+	</update>
+	<delete id="occasionCashGroupDeleteJson" parameterType="int">
+		DELETE OccasionCashGroup where member_num=#{member_num}
+	</delete>
+</mapper>

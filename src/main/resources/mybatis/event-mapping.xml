@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.event">
+	<insert id="eventWriteJson" parameterType="eventdto">
+		insert into event values (seq_event.nextval, #{isnew}, #{event_subject1}, #{event_subject2},
+		#{event_content}, sysdate, #{event_origin_img}, #{event_uuid_img}, #{event_type})
+	</insert>	
+	<select id="eventViewJson" parameterType="int" resultType="eventdto">
+		select * from event where event_index=#{event_index}
+	</select>
+	
+	<select id="eventListJson" parameterType="java.util.Map" resultType="eventdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from event where event_type=#{event_type} order by event_index desc) tt)
+		where rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="eventListTotalJson" resultType="int">
+		SELECT count(*) as cnt from event
+	</select>
+	<select id="eventFAQListJson" parameterType="java.util.Map" resultType="eventdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from event where event_type=#{event_type} and event_subject2=#{event_subject2}
+		order by event_index desc) tt) where rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="eventFAQListTotalJson" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) as cnt from event where event_type=#{event_type} and event_subject2=#{event_subject2}
+	</select>
+	<select id="eventSearchListJson" parameterType="java.util.Map" resultType="eventdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from event where (event_subject1 like #{search_word} or
+		event_content like #{search_word}) and event_type=3	order by event_index desc) tt) where rn >= #{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="eventSearchListTotalJson" parameterType="String" resultType="int">
+		SELECT count(*) as cnt from event where (event_subject1 like #{search_word} or event_content like #{search_word}) and event_type=3
+	</select>
+			
+	<update id="eventUpdateJson" parameterType="eventdto"> <!-- 녕0402 수정 -->
+		UPDATE event set isnew=#{isnew}, event_subject1=#{event_subject1},
+		event_subject2=#{event_subject2}, event_content=#{event_content}, event_date=sysdate,
+		event_origin_img=#{event_origin_img}, event_uuid_img=#{event_uuid_img}, event_type=#{event_type}
+		where event_index=#{event_index}
+	</update>
+	<delete id="eventDeleteJson" parameterType="int">
+		DELETE event where event_index=#{event_index}
+	</delete>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.shop">
+	<insert id="shopWriteJson" parameterType="shopdto">
+		insert into shop values (shop_seq.nextval, #{shop_name}, #{shop_type}, #{shop_grade}, #{shop_detail},
+		#{shop_phone}, #{shop_url}, #{shop_email}, #{shop_origin_img}, #{shop_uuid_img}, #{shop_addr})
+	</insert>
+	<select id="shopViewJson" parameterType="int" resultType="shopdto">
+		select * from shop where shop_index=#{shop_index}
+	</select>
+	<select id="shopListTotalJson" resultType="int">
+		SELECT count(*) as cnt from shop
+	</select>
+	<select id="shopListTypeTotalJson" parameterType="String" resultType="int">
+		SELECT count(*) as cnt from shop where shop_type=#{shop_type}
+	</select>	
+	<select id="shopListdescJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop order by shop_index desc) tt)
+		where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListTypedescJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop where shop_type=#{shop_type}
+		order by shop_index desc) tt) where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListascJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop order by shop_index asc) tt)
+		where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListTypeascJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop where shop_type=#{shop_type}
+		order by shop_index asc) tt) where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	
+	<select id="shopListSearchdescJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop where (shop_name like #{search_word} or
+		shop_detail like #{search_word} or shop_type like #{search_word}) order by shop_index desc) tt)
+		where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListSearchascJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop where (shop_name like #{search_word} or
+		shop_detail like #{search_word} or shop_type like #{search_word}) order by shop_index asc) tt)
+		where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListSearchTotalJson" parameterType="String" resultType="int">
+		select count(*) as cnt from shop where (shop_name like #{search_word} or
+		shop_detail like #{search_word} or shop_type like #{search_word})
+	</select>
+	
+	<select id="shopListScoreJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop order by shop_grade desc) tt)
+		where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>
+	<select id="shopListTypeScoreJson" parameterType="java.util.Map" resultType="shopdto">
+		<![CDATA[select * from(select rownum rn, tt. * from(select * from shop where shop_type=#{shop_type}
+		order by shop_grade desc) tt) where rn >=#{startNum} and rn <=#{endNum}]]>
+	</select>	
+	<update id="shopUpdateJson" parameterType="shopdto">
+		update shop set shop_name=#{shop_name}, shop_type=#{shop_type}, shop_grade=#{shop_grade}, shop_detail=#{shop_detail},
+		shop_phone=#{shop_phone}, shop_url=#{shop_url}, shop_email=#{shop_email}, shop_origin_img=#{shop_origin_img},
+		shop_uuid_img=#{shop_uuid_img}, shop_total_score=#{shop_total_score}, shop_total_count=#{shop_total_count} where shop_index=#{shop_index}
+	</update>
+	<update id="shopUpdateScoreJson" parameterType="java.util.Map">
+		update shop set shop_total_score=shop_total_score+#{score}, shop_total_count=shop_total_count+1, shop_grade=#{shop_grade} where shop_index=#{shop_index}
+	</update>
+	<delete id="shopDeleteJson" parameterType="int">
+		delete shop where shop_index=#{shop_index}
+	</delete>
+	
+	<insert id="shopevWriteJson" parameterType="shopevdto">
+		insert into shopev values (#{shop_index}, #{member_num}, #{shop_score})
+	</insert>
+	<select id="shopevViewJson" parameterType="java.util.Map" resultType="int">
+		select count(*) as cnt from shopev where shop_index=#{shop_index} and member_num=#{member_num}
+	</select>
+	<select id="shopevScoreViewJson" parameterType="java.util.Map" resultType="String">
+		select shop_score from shopev where shop_index=#{shop_index} and member_num=#{member_num}
+	</select>
+
+
+</mapper>

@@ -1,0 +1,268 @@
+@charset "UTF-8";
+
+    body { /*바디 스타일*/
+	font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+	background-color: #fff;
+	margin: 100px 20px 20px 20px;
+  	}
+  	
+	header { /*헤더 스타일*/
+	position: fixed;
+	background: #f2f2f2;
+	color: #000000;
+	padding: 10px;
+	width: 100%;
+	top: 0;
+	left: 0;
+	}
+	
+	.header-left { /*헤더 좌측 스타일*/
+	float: left;
+	display: inline-block;
+	margin:0 0 0 10px;
+  	}
+  	
+  	.header-right { /*헤더 우측 스타일*/
+	float: right;
+	display: inline-block;
+	margin:0 100px 0 0;
+  	}
+  	
+  	.header-image { /*헤더 이미지 버튼 스타일*/
+  	height: 30px;
+	width: 30px;
+  	}
+  	
+  	.body-image { /*바디 이미지 버튼 스타일*/
+  	height: 100px;
+	width: 100px;
+  	}
+	
+	footer { /*푸터 스타일*/
+	position: fixed;
+	background: #f2f2f2;
+	color: #000000;
+	padding: 10px;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	margin-top: 20px;
+	}
+	
+	section { /*섹션 스타일*/
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+	background-color: #F2F2F2;
+	margin: 100px 20px 20px 20px;
+  	}
+  	
+  	span { /*span 기본 스타일*/
+  	font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    vertical-align: middle;
+  	}
+  	
+  	.span-title { /*span 제목 스타일*/
+	margin: 0 10px 0 0;
+	text-align: center;
+  	}
+  	
+  	.span-button { /*span 버튼 스타일*/
+	margin: 0 20px 0 20px;
+  	}
+  	
+  	.span-hyperlink { /*span 하이퍼링크 스타일*/
+	margin: 0 10px 0 10px;
+  	}
+  	
+	.menubar { }
+	
+	.menubar ul { /*상위 메뉴바 박스 디자인 초기화*/
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	}
+	
+	.menubar li a { /*메뉴바 전체 텍스트 디자인*/
+	color: #000000;
+	display: block;
+	line-height: 50px;
+	text-align: center;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-weight: bold;
+	}
+	
+	.menubar li ul { /*하위 메뉴바 전체 박스 디자인 & 기본 숨기기*/
+	display: none;
+	height: auto;
+	border: 1px solid #ccc;
+	position: absolute;
+	width: 100px;
+	}
+
+	.menubar li:hover ul { /*상위 메뉴바 마우스오버시 하위 메뉴바 노출*/
+	display: block; 
+	}
+	
+	.menubar li li { /*하위 메뉴바 항목별 박스 디자인*/
+	background: #fff;
+	display: block;
+	float: none;
+	}
+	
+	.menubar li ul a { /*하위 메뉴바 텍스트 디자인*/
+	display: block;
+	height: 50px;
+	font-size: 14px;
+	text-align: center;
+	}
+	
+	.menubar li ul a:hover, .menubar li ul li:hover a { /*하위 메뉴바 항목 마우스오버 시 디자인*/
+	background: #A9D0F5;
+	border: 0px;
+	color: #000000;
+	text-decoration: none;
+	}
+	
+  	.inputbox-big { /*큰 상자 스타일*/
+  	height: 200px;
+	width: 400px;
+  	}
+  	
+  	.inputbox-small { /*작은 상자 스타일*/
+  	margin: 0 20px 0 20px;
+  	height: 100px;
+	width: 100px;
+  	}
+  	
+  	.btn { /*버튼 기본 스타일*/
+    display: inline-block;
+    font-family: arial narrow;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px #A4A4A4;
+  	}
+  	
+  	.btn:hover { /*버튼 마우스 오버 시*/
+    text-shadow: 1px 1px 1px rgba(051,051,051,1);
+  	}
+  	
+  	.btn:active { /*버튼 클릭 시*/
+    box-shadow: none;
+  	}
+
+  	.btn-red { /*빨간색 버튼*/
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  	}
+  	
+  	.btn-blue { /*파란색 버튼*/
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+  	}
+  	
+  	.input-small {
+    display: inline-block;
+    font-family: arial narrow;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 3px 5px 3px 5px;
+    }
+    
+    .input-big {
+    display: block;
+    font-family: arial narrow;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 500px;
+    height: 200px;
+    cols: 100;
+    rows: 10000;
+    margin: 5px 0 0 0;
+    padding: 10px 10px 10px 10px;
+    }
+    
+    table {
+	border-collapse: collapse;
+    border-spacing: 0;
+    margin: 5px 0 0 0;
+    }
+    
+    thead {
+    border: 1px solid #ccc;
+    background-color: #f2f2f2;
+    }
+    
+    thead th{
+    font-family: arial narrow;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    width: 50px;
+    border: 1px solid #ccc;
+    padding: 10px 5px 10px 5px;
+    }
+    
+    tbody {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    }
+    
+    tbody th {
+    font-family: arial narrow;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 5px 10px 5px;
+    }
+    
+    select {
+    display: inline-block;
+    font-family: arial narrow;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px;
+    }
+    
+    .page-left {
+	float: left;
+	}
+	
+	.page-right {
+	  float: right;
+	}
+	
+	.page-space {
+	}
