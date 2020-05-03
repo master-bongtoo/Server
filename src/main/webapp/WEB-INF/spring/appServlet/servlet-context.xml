@@ -38,4 +38,6 @@
 		<resources location="/clientWeb/" mapping="/clientWeb/**" />
 	    <resources location="/File/" mapping="/File/**" />
 		<resources location="/js/" mapping="/js/**" />
+	<!-- 왜인지는 모르겠는데 이거 없어도 작동은 잘되는데 자꾸 맵핑안된다 어쩌구 해서 추가함(추가하니깐 맵핑어쩌고는 안떠서 편안한데 이유를 모르겠음 안될꺼면 적용도 안되야지...)-->		
+		<resources location="/WebCSS/" mapping="/WebCSS/**" />
 </beans:beans>
