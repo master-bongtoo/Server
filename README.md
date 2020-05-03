@@ -1,3 +1,3 @@
 # Server
 Bongtoo Server
-로로로
+아이피는 항상 0으로 업데이트 합시다
