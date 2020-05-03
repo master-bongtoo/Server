@@ -33,7 +33,7 @@
 <span class="menubar" style="margin:0 0 0 20px;">
 	<ul style="display:inline-block;">
 		<li style="display:inline-block;">
-		<input type="image" class="header-image" src="../../WebIMG/pengu.png">
+		<input type="image" class="header-image" src="../WebIMG/pengu.png">
 			<ul>
     	 		<li id="menu_login"><a href="/bongtoo/clientWeb/WebPage/AdminLogin.jsp">로그아웃</a></li>
      	 		<li><a href="/bongtoo/clientWeb/WebPage/AdminNotice1_NoticeList.jsp">공지사항 관리</a></li>
